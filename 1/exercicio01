@@ -24,7 +24,7 @@ syscall
 contaPares:
 li $t7,0
 #dois pra ficar dividindo o ascii
-#do caractere pq 0ascii é 48dec(todos os
+#do caractere pq 0ascii ï¿½ 48dec(todos os
 #n pares sao pares em dec)
 li $t6,2
 la, $t1,numero
@@ -57,3 +57,8 @@ fim:
 li $a0,10
 syscall
 
+
+
+
+#o numero de pares ta no registrador $t7!!!
+#Ã­a fazer a mensagem mostrando depois mas acabei nao implementando
