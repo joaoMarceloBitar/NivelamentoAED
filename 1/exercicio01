@@ -1,0 +1,59 @@
+.data
+	texto1: .asciiz "Insira um valor: " 
+	numero: .space 9
+	texto2: .ascii "pares :"
+	nPares: .space 64
+.text
+
+jal imprimeTxt1
+jal armazenaValor
+jal contaPares
+
+imprimeTxt1:
+li $v0, 4
+la $a0, texto1
+syscall
+jr $ra
+
+armazenaValor:
+li $v0, 8
+la $a0, numero
+li $a1, 8
+syscall 
+
+contaPares:
+li $t7,0
+#dois pra ficar dividindo o ascii
+#do caractere pq 0ascii é 48dec(todos os
+#n pares sao pares em dec)
+li $t6,2
+la, $t1,numero
+
+loopIteraNumero:
+lb  $t2,0($t1)
+beq $t2,$zero, fim
+div $t2,$t6
+mfhi $t5
+jal confereResto
+
+addi $t1,$t1,1
+j loopIteraNumero
+
+confereResto:
+bne $t5,$zero,impar
+addi $t7,$t7,1
+impar:
+jr $ra
+
+imprimeTxt2:
+la, $t1,nPares
+sw $t7,0($t1)
+la $a0,texto2
+li $v0,4
+syscall
+j fim
+
+fim:
+li $a0,10
+syscall
+
